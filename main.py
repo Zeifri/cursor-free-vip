@@ -3,21 +3,24 @@
 import os
 import sys
 import json
-from logo import print_logo
+from logo import print_logo, version
 from colorama import Fore, Style, init
 import locale
 import platform
+import requests
+import subprocess
+from config import get_config  
 
-# 只在 Windows 系统上导入 windll
+# Only import windll on Windows systems
 if platform.system() == 'Windows':
     import ctypes
     # 只在 Windows 上导入 windll
     from ctypes import windll
 
-# 初始化colorama
+# Initialize colorama
 init()
 
-# 定义emoji和颜色常量
+# Define emoji and color constants
 EMOJI = {
     "FILE": "📄",
     "BACKUP": "💾",
@@ -34,7 +37,7 @@ EMOJI = {
 class Translator:
     def __init__(self):
         self.translations = {}
-        self.current_language = self.detect_system_language()  # 使用正确的方法名
+        self.current_language = self.detect_system_language()  # Use correct method name
         self.fallback_language = 'en'  # Fallback language if translation is missing
         self.load_translations()
     
@@ -55,11 +58,11 @@ class Translator:
     def _detect_windows_language(self):
         """Detect language on Windows systems"""
         try:
-            # 确保我们在 Windows 上
+            # Ensure we are on Windows
             if platform.system() != 'Windows':
                 return 'en'
                 
-            # 获取键盘布局
+            # Get keyboard layout
             user32 = ctypes.windll.user32
             hwnd = user32.GetForegroundWindow()
             threadid = user32.GetWindowThreadProcessId(hwnd, 0)
@@ -165,7 +168,7 @@ class Translator:
         """Get list of available languages"""
         return list(self.translations.keys())
 
-# 创建翻译器实例
+# Create translator instance
 translator = Translator()
 
 def print_menu():
@@ -203,8 +206,105 @@ def select_language():
         print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
         return False
 
+def check_latest_version():
+    """Check if current version matches the latest release version"""
+    try:
+        print(f"\n{Fore.CYAN}{EMOJI['UPDATE']} {translator.get('updater.checking')}{Style.RESET_ALL}")
+        
+        # Get latest version from GitHub API with timeout and proper headers
+        headers = {
+            'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'CursorFreeVIP-Updater'
+        }
+        response = requests.get(
+            "https://api.github.com/repos/yeongpin/cursor-free-vip/releases/latest",
+            headers=headers,
+            timeout=10
+        )
+        
+        # Check if response is successful
+        if response.status_code != 200:
+            raise Exception(f"GitHub API returned status code {response.status_code}")
+            
+        response_data = response.json()
+        if "tag_name" not in response_data:
+            raise Exception("No version tag found in GitHub response")
+            
+        latest_version = response_data["tag_name"].lstrip('v')
+        
+        # Validate version format
+        if not latest_version:
+            raise Exception("Invalid version format received")
+        
+        if latest_version != version:
+            print(f"\n{Fore.YELLOW}{EMOJI['INFO']} {translator.get('updater.new_version_available', current=version, latest=latest_version)}{Style.RESET_ALL}")
+            
+            # Ask user if they want to update
+            while True:
+                choice = input(f"\n{EMOJI['ARROW']} {Fore.CYAN}{translator.get('updater.update_confirm', choices='Y/n')}: {Style.RESET_ALL}").lower()
+                if choice in ['', 'y', 'yes']:
+                    break
+                elif choice in ['n', 'no']:
+                    print(f"\n{Fore.YELLOW}{EMOJI['INFO']} {translator.get('updater.update_skipped')}{Style.RESET_ALL}")
+                    return
+                else:
+                    print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.invalid_choice')}{Style.RESET_ALL}")
+            
+            try:
+                # Execute update command based on platform
+                if platform.system() == 'Windows':
+                    update_command = 'irm https://raw.githubusercontent.com/yeongpin/cursor-free-vip/main/scripts/install.ps1 | iex'
+                    subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', update_command], check=True)
+                else:
+                    # For Linux/Mac, download and execute the install script
+                    install_script_url = 'https://raw.githubusercontent.com/yeongpin/cursor-free-vip/main/scripts/install.sh'
+                    
+                    # First verify the script exists
+                    script_response = requests.get(install_script_url, timeout=5)
+                    if script_response.status_code != 200:
+                        raise Exception("Installation script not found")
+                        
+                    # Save and execute the script
+                    with open('install.sh', 'wb') as f:
+                        f.write(script_response.content)
+                    
+                    os.chmod('install.sh', 0o755)  # Make executable
+                    subprocess.run(['./install.sh'], check=True)
+                    
+                    # Clean up
+                    if os.path.exists('install.sh'):
+                        os.remove('install.sh')
+                
+                print(f"\n{Fore.GREEN}{EMOJI['SUCCESS']} {translator.get('updater.updating')}{Style.RESET_ALL}")
+                sys.exit(0)
+                
+            except Exception as update_error:
+                print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('updater.update_failed', error=str(update_error))}{Style.RESET_ALL}")
+                print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('updater.manual_update_required')}{Style.RESET_ALL}")
+                return
+        else:
+            print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {translator.get('updater.up_to_date')}{Style.RESET_ALL}")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('updater.network_error', error=str(e))}{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('updater.continue_anyway')}{Style.RESET_ALL}")
+        return
+        
+    except Exception as e:
+        print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('updater.check_failed', error=str(e))}{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}{EMOJI['INFO']} {translator.get('updater.continue_anyway')}{Style.RESET_ALL}")
+        return
+
 def main():
     print_logo()
+    
+    # Initialize configuration
+    config = get_config(translator)
+    if not config:
+        print(f"{Fore.RED}{EMOJI['ERROR']} {translator.get('menu.config_init_failed')}{Style.RESET_ALL}")
+        return
+        
+    check_latest_version()  # Add version check before showing menu
     print_menu()
     
     while True:
