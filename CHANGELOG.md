@@ -1,6 +1,17 @@
 # Change Log
 
-## v1.7.10 ( Pre - Release 版本 )
+## v1.7.11 ( Pre - Release 版本 )
+1. Add: Multi-language Support | 增加多語言支持
+2. Add: German Language | 增加德語
+3. Add: Dutch Language | 增加荷蘭語
+4. Add: French Language | 增加法語
+5. Add: Auto Detect Max Use Count | 增加自動檢測最大使用次數
+6. Add: Detect & Auto Delete Account | 增加檢測 & 自動刪除賬號
+7. Add: Optimize Some Logic | 優化一些邏輯
+8. Add: Local Blocked Domains | 增加本地被屏蔽域名
+9. Fix : Get Verification Code for None | 修復獲取驗證碼為 None
+
+## v1.7.10
 1. Add: Totally Reset Cursor | 增加完全重置 Cursor
 2. Add: Multi-language Support for Totally Reset | 增加完全重置多語言支持
 
