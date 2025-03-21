@@ -121,6 +121,7 @@ storage_path = /Users/username/Library/Application Support/Cursor/User/globalSto
 sqlite_path = /Users/username/Library/Application Support/Cursor/User/globalStorage/state.vscdb
 # Machine ID Path | 機器ID路徑
 machine_id_path = /Users/username/Library/Application Support/Cursor/machineId
+# For Linux users: ~/.config/cursor/machineid
 
 [Timing]
 # Min Random Time | 最小隨機時間
@@ -168,7 +169,7 @@ max_timeout = 160
 |                   如果遇到權限問題，請確保：                    |                   此腳本以管理員身份運行                    |
 |:--------------------------------------------------:|:------------------------------------------------:|
 | If you encounter permission issues, please ensure: | This script is run with administrator privileges |
-| Error 'User is no authorized' | This means your account was banned for using temporary (disposal) mail. Ensure using a non-temporary mail service |
+| Error 'User is not authorized' | This means your account was banned for using temporary (disposal) mail. Ensure using a non-temporary mail service |
 ## 🤩 Contribution | 貢獻
 
 歡迎提交 Issue 和 Pull Request！
