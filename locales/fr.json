@@ -16,7 +16,10 @@
         "press_enter": "Appuyez sur Entrée pour quitter",
         "disable_auto_update": "Désactiver la Mise à Jour Automatique de Cursor",
         "lifetime_access_enabled": "ACCÈS À VIE ACTIVÉ",
-        "totally_reset": "Réinitialisation Complète de Cursor"
+        "totally_reset": "Réinitialisation Complète de Cursor",
+        "outdate": "Obsolete",
+        "temp_github_register": "Inscription GitHub temporaire",
+        "coming_soon": "Bientôt"
     },
     "languages": {
         "en": "Anglais",
@@ -27,7 +30,8 @@
         "de": "Allemand",
         "fr": "Français",
         "pt": "Portugais",
-        "ru": "Russe"
+        "ru": "Russe",
+        "es": "Espagnol"
     },
     "quit_cursor": {
         "start": "Début de la Fermeture de Cursor",

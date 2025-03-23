@@ -10,7 +10,7 @@
 [![Release](https://img.shields.io/github/v/release/yeongpin/cursor-free-vip?style=flat-square&logo=github&color=blue)](https://github.com/yeongpin/cursor-free-vip/releases/latest)
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC_BY--NC--ND_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 [![Stars](https://img.shields.io/github/stars/yeongpin/cursor-free-vip?style=flat-square&logo=github)](https://github.com/yeongpin/cursor-free-vip/stargazers)
-[![Download](https://img.shields.io/github/downloads/yeongpin/cursor-free-vip/total?style=flat-square&logo=github&color=52c41a)](https://github.com/yeongpin/cursor-free-vip/releases/latest)
+[![Download](https://img.shields.io/github/downloads/yeongpin/cursor-free-vip/total?style=flat-square&logo=github&color=52c41a1)](https://github.com/yeongpin/cursor-free-vip/releases/latest)
 
 </p>
 <h4>Support Latest 0.47.x Version | 支持最新 0.47.x 版本</h4>
@@ -21,7 +21,7 @@ Cursor's configuration.
 這是一個自動化工具，自動註冊，支持 Windows 和 macOS 系統，完成 Auth 驗證，重置 Cursor 的配置。
 
 <p align="center">
-  <img src="./images/new_2025-03-19_00-19-09.png" alt="new" width="400" style="border-radius: 6px;"/><br>
+  <img src="./images/new_2025-03-22_19-53-10.png" alt="new" width="400" style="border-radius: 6px;"/><br>
 </p>
 
 ##### If you don't have Google Chrome, you can download it from [here](https://www.google.com/intl/en_pk/chrome/)
@@ -176,7 +176,7 @@ max_timeout = 160
 
 
 <a href="https://github.com/yeongpin/cursor-free-vip/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=yeongpin/cursor-free-vip" />
+  <img src="https://contrib.rocks/image?repo=yeongpin/cursor-free-vip&preview=true&max=&columns=" />
 </a>
 <br /><br />
 
