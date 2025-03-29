@@ -13,10 +13,17 @@
 [![Download](https://img.shields.io/github/downloads/yeongpin/cursor-free-vip/total?style=flat-square&logo=github&color=52c41a1)](https://github.com/yeongpin/cursor-free-vip/releases/latest)
 
 </p>
-<h4>Support Latest 0.47.x Version | 支持最新 0.47.x 版本</h4>
+<h4>Support Latest 0.48.x Version | 支持最新 0.48.x 版本</h4>
 
-This is a tool to automatically register, support Windows and macOS systems, complete Auth verification, and reset
-Cursor's configuration.
+This tool register accounts with custom emails, support Google and GitHub account registrations, temporary GitHub account registration, kills all Cursor's running processes,reset and wipe Cursor data and hardware info.
+
+Supports Windows, macOS and Linux.
+
+For optimal performance, run with privileges and always stay up to date.
+
+Always clean your browser cache and cookies. If possible, user a VPN to create new accounts.
+
+
 
 這是一個自動化工具，自動註冊，支持 Windows 和 macOS 系統，完成 Auth 驗證，重置 Cursor 的配置。
 
@@ -152,6 +159,12 @@ failed_retry_time = 0.5-1
 retry_interval = 8-12
 # Max Timeout | 最大超時時間
 max_timeout = 160
+
+[Utils]
+# Check Update | 檢查更新
+check_update = True
+# Show Account Info | 顯示賬號信息
+show_account_info = True
 ```
 
 </details>
