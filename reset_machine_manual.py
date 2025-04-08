@@ -8,6 +8,7 @@ import sqlite3
 import platform
 import re
 import tempfile
+import glob
 from colorama import Fore, Style, init
 from typing import Tuple
 import configparser
@@ -25,7 +26,7 @@ EMOJI = {
     "SUCCESS": "✅",
     "ERROR": "❌",
     "INFO": "ℹ️",
-    "RESET": "��",
+    "RESET": "🔄",
     "WARNING": "⚠️",
 }
 
@@ -46,8 +47,27 @@ def get_cursor_paths(translator=None) -> Tuple[str, str]:
     default_paths = {
         "Darwin": "/Applications/Cursor.app/Contents/Resources/app",
         "Windows": os.path.join(os.getenv("LOCALAPPDATA", ""), "Programs", "Cursor", "resources", "app"),
-        "Linux": ["/opt/Cursor/resources/app", "/usr/share/cursor/resources/app", os.path.expanduser("~/.local/share/cursor/resources/app")]
+        "Linux": ["/opt/Cursor/resources/app", "/usr/share/cursor/resources/app", os.path.expanduser("~/.local/share/cursor/resources/app"), "/usr/lib/cursor/app/"]
     }
+    
+    if system == "Linux":
+        # Look for extracted AppImage with correct usr structure
+        extracted_usr_paths = glob.glob(os.path.expanduser("~/squashfs-root/usr/share/cursor/resources/app"))
+        # Also check current directory for extraction without home path prefix
+        current_dir_paths = glob.glob("squashfs-root/usr/share/cursor/resources/app")
+        
+        # Add any found paths to the Linux paths list
+        default_paths["Linux"].extend(extracted_usr_paths)
+        default_paths["Linux"].extend(current_dir_paths)
+        
+        # Print debug information
+        print(f"{Fore.CYAN}{EMOJI['INFO']} Available paths found:{Style.RESET_ALL}")
+        for path in default_paths["Linux"]:
+            if os.path.exists(path):
+                print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {path} (exists){Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}{EMOJI['ERROR']} {path} (not found){Style.RESET_ALL}")
+    
     
     # If config doesn't exist, create it with default paths
     if not os.path.exists(config_file):
@@ -159,6 +179,14 @@ def get_cursor_machine_id_path(translator=None) -> str:
 def get_workbench_cursor_path(translator=None) -> str:
     """Get Cursor workbench.desktop.main.js path"""
     system = platform.system()
+
+    # Read configuration
+    config_dir = os.path.join(get_user_documents_path(), ".cursor-free-vip")
+    config_file = os.path.join(config_dir, "config.ini")
+    config = configparser.ConfigParser()
+
+    if os.path.exists(config_file):
+        config.read(config_file)
     
     paths_map = {
         "Darwin": {  # macOS
@@ -166,14 +194,19 @@ def get_workbench_cursor_path(translator=None) -> str:
             "main": "out/vs/workbench/workbench.desktop.main.js"
         },
         "Windows": {
-            "base": os.path.join(os.getenv("LOCALAPPDATA", ""), "Programs", "Cursor", "resources", "app"),
-            "main": "out/vs/workbench/workbench.desktop.main.js"
+            "main": "out\\vs\\workbench\\workbench.desktop.main.js"
         },
         "Linux": {
-            "bases": ["/opt/Cursor/resources/app", "/usr/share/cursor/resources/app"],
+            "bases": ["/opt/Cursor/resources/app", "/usr/share/cursor/resources/app", "/usr/lib/cursor/app/"],
             "main": "out/vs/workbench/workbench.desktop.main.js"
         }
     }
+    
+    if system == "Linux":
+        # Add extracted AppImage with correct usr structure
+        extracted_usr_paths = glob.glob(os.path.expanduser("~/squashfs-root/usr/share/cursor/resources/app"))
+            
+        paths_map["Linux"]["bases"].extend(extracted_usr_paths)
 
     if system not in paths_map:
         raise OSError(translator.get('reset.unsupported_os', system=system) if translator else f"不支持的操作系统: {system}")
@@ -181,11 +214,15 @@ def get_workbench_cursor_path(translator=None) -> str:
     if system == "Linux":
         for base in paths_map["Linux"]["bases"]:
             main_path = os.path.join(base, paths_map["Linux"]["main"])
+            print(f"{Fore.CYAN}{EMOJI['INFO']} Checking path: {main_path}{Style.RESET_ALL}")
             if os.path.exists(main_path):
                 return main_path
-        raise OSError(translator.get('reset.linux_path_not_found') if translator else "在 Linux 系统上未找到 Cursor 安装路径")
 
-    base_path = paths_map[system]["base"]
+    if system == "Windows":
+        base_path = config.get('WindowsPaths', 'cursor_path')
+    else:
+        base_path = paths_map[system]["base"]
+
     main_path = os.path.join(base_path, paths_map[system]["main"])
     
     if not os.path.exists(main_path):
@@ -299,11 +336,11 @@ def modify_workbench_js(file_path: str, translator=None) -> bool:
 
             if sys.platform == "win32":
                 # Define replacement patterns
-                CButton_old_pattern = r'$(k,E(Ks,{title:"Upgrade to Pro",size:"small",get codicon(){return F.rocket},get onClick(){return t.pay}}),null)'
-                CButton_new_pattern = r'$(k,E(Ks,{title:"yeongpin GitHub",size:"small",get codicon(){return F.rocket},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)'
+                CButton_old_pattern = r'M(x,I(as,{title:"Upgrade to Pro",size:"small",get codicon(){return $.rocket},get onClick(){return t.pay}}),null)'
+                CButton_new_pattern = r'M(x,I(as,{title:"yeongpin GitHub",size:"small",get codicon(){return $.rocket},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)'
             elif sys.platform == "linux":
-                CButton_old_pattern = r'$(k,E(Ks,{title:"Upgrade to Pro",size:"small",get codicon(){return F.rocket},get onClick(){return t.pay}}),null)'
-                CButton_new_pattern = r'$(k,E(Ks,{title:"yeongpin GitHub",size:"small",get codicon(){return F.rocket},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)'
+                CButton_old_pattern = r'M(x,I(as,{title:"Upgrade to Pro",size:"small",get codicon(){return $.rocket},get onClick(){return t.pay}}),null)'
+                CButton_new_pattern = r'M(x,I(as,{title:"yeongpin GitHub",size:"small",get codicon(){return $.rocket},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)'
             elif sys.platform == "darwin":
                 CButton_old_pattern = r'M(x,I(as,{title:"Upgrade to Pro",size:"small",get codicon(){return $.rocket},get onClick(){return t.pay}}),null)'
                 CButton_new_pattern = r'M(x,I(as,{title:"yeongpin GitHub",size:"small",get codicon(){return $.rocket},get onClick(){return function(){window.open("https://github.com/yeongpin/cursor-free-vip","_blank")}}}),null)'

@@ -1,5 +1,48 @@
 # Change Log
 
+## v1.8.08
+1. Add: Force Update Config | 添加強制更新配置
+2. Add: Multilanguage support for force update | 添加強制更新功能的多語言支持
+3. Fix: Google Auth & Github Auth JWT Problem | 修復 Google Auth & Github Auth JWT 問題
+4. Fix: Totally reset import & import * raw options problem | 修復 totally reset import & import * raw 選項問題
+5. Fix: reset.file_not_found problem | 修復 reset.file_not_found 問題
+6. Outdated: Bypass Cursor Version Check | 過期：繞過 Cursor 版本檢查
+7. Document: i.header.set("x-cursor-config-version", "UUID4-xxxxxx-xxxxxx-xxxxxx-xxxxxx"); | 文檔：i.header.set("x-cursor-config-version", "UUID4-xxxxxx-xxxxxx-xxxxxx-xxxxxx");
+8. Fix: Some Issues | 修復一些問題
+
+## v1.8.07
+1. Add: Bypass Cursor Version Check | 添加繞過 Cursor 版本檢查
+2. Add: Multilanguage support for bypass | 添加繞過的多語言支持
+3. MSG: Free & free trial accounts can no longer use chat with premium models on Cursor Version 0.45 or less. Please upgrade to Pro or use Cursor Version 0.46 or later. Install Cursor at https://www.cursor.com/downloads or update from within the editor.
+4. Fix: Some Issues | 修復一些問題
+
+## v1.8.06
+1. Add: Google Account Deletion Feature | 添加 Google 账号删除功能
+2. Update: Menu with new account deletion option | 更新菜单添加账号删除选项
+3. Add: Multilanguage support for account deletion | 添加账号删除功能的多语言支持
+4. Fix: Improve usage limits check and tuple index error | 修复使用限制检查和元组索引错误
+5. Fix: bug in disable cursor auto update | 修复禁用 Cursor 自动更新的错误
+6. Fix: Linux-appimage | 修复 Linux-appimage 问题
+7. Add: Support for custom Cursor installation paths on Windows | 添加 Windows 系统下自定义 Cursor 安装路径支持
+8. Add: Chrome profile selection feature | 添加 Chrome 配置文件选择功能
+9. Fix: improve account usage limit detection | 修復賬號檢測
+10. Fix: For custom Chrome Installations | 修復自定義chrome遊覽器安裝
+
+## v1.8.05
+1. Fix: Linux Path Not Found ｜ 修復linuxpath問題
+2. Add: support for detecting both 150/150 and 50/50 usage limits ｜ 添加偵測50 或者150的使用量
+3. Improve: usage parsing and validation ｜ 檢測使用量
+
+## v1.8.04
+1. Update totally_reset_cursor.py | 更新 totally_reset_cursor.py
+2. Fix: improve Linux Chrome visibility and root user handling | 修復 Linux Chrome 可見性以及 root 用戶處理
+3. Fix: improve Linux path handling and fix permission issues | 修復 Linux 路徑處理以及修復權限問題
+4. Fix: Some Issues | 修復一些問題
+
+## v1.8.03
+1. Fix: Improve Linux path handling and add case-insensitive Cursor directory detection ｜ 修復Linux系統路徑錯誤以及添加cursor 路徑偵測
+2. Fix: Some Issues | 修復一些問題
+
 ## v1.8.02
 1. Add: New Temp Email | 增加新臨時郵箱
 2. Add: Config Options | 增加配置選項
