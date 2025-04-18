@@ -1,5 +1,81 @@
 # Change Log
 
+## v1.10.02
+1. Remove: Remove All Auto generating fake Google email accounts and OAuth access | 移除所有自動生成假 Google 電子郵件帳戶和 OAuth 訪問
+2. Follow GitHub Terms of Service | 遵守 GitHub Terms of Service
+3. Follow Cursor Terms of Service | 遵守 Cursor Terms of Service
+4. All are for educational purposes, currently the repo does not violate any laws | 全都是教育用途，目前 repo 沒有違反任何法律
+5. This project adopts CC BY-NC-ND 4.0 , do not use for commercial purposes | 本專案採用 CC BY-NC-ND 4.0，拒絕任何商業用途
+6. Use & Cherish | 切用且珍惜
+7. Same as v1.10.01 | 與 v1.10.01 相同 
+8. Fix: reset machine ID no module name 'new_signup' | 修復機器 ID 重置 no module name 'new_signup'
+9. Fix: Some Issues | 修復一些問題
+
+## v1.10.01
+1. Remove: Remove All Auto generating fake Google email accounts and OAuth access | 移除所有自動生成假 Google 電子郵件帳戶和 OAuth 訪問
+2. Follow GitHub Terms of Service | 遵守 GitHub Terms of Service
+3. Follow Cursor Terms of Service | 遵守 Cursor Terms of Service
+4. All are for educational purposes, currently the repo does not violate any laws | 全都是教育用途，目前 repo 沒有違反任何法律
+5. This project adopts CC BY-NC-ND 4.0 , do not use for commercial purposes | 本專案採用 CC BY-NC-ND 4.0，拒絕任何商業用途
+6. Use & Cherish | 切用且珍惜
+7. Fix: Some Issues | 修復一些問題
+
+## v1.9.05
+1. Refactor: Using match-case to refactor language mapping and menu selection logic, making the code clearer and more maintainable. | 使用 match-case 重构语言映射和菜单选择逻辑，使代码更清晰、可维护性更高。
+2. Ci: Update the Python version in the ARM64 Docker build container to 3.10, making it more compatible and easier to migrate in the future. | 更新 ARM64 Docker 构建容器中的 Python 版本至 3.10，兼容性更强，方便未来迁移。
+3. Fix: f-string backslash expression errors in multiple files | 修復多個文件中的 f-string 反斜杠表達式錯誤
+4. Sync AUR new version 1.9.04 | 同步 AUR 新版本 1.9.04
+5. Fix: missing license install on pkgbuild @michaeldavis246611119 mention here | 修復 pkgbuild 中缺少授權安裝 @michaeldavis246611119 提到這裡
+6. Fix: readme table | 修復 readme 表格
+7. Fix: google-chrome package name problem, add "google-chrome-stable" [Bug]: Chrome error | Arch | gnome | AUR chrome #242 [Discussion]: how to use the new feature, Register with Google Account #249 [Discussion]: Having issues using the script in Ubuntu #487 [Bug]: Can open chromium bin in linux #616 | 修復 google-chrome 包名稱問題，添加 "google-chrome-stable" [Bug]: Chrome error | Arch | gnome | AUR chrome #242 [Discussion]: how to use the new feature, Register with Google Account #249 [Discussion]: Having issues using the script in Ubuntu #487 [Bug]: Can open chromium bin in linux #616
+8. Fix: exception error log | 修復異常錯誤日誌
+9. Fix: github oauth error [Bug]: #564 | 修復 github oauth 錯誤 [Bug]: #564
+10. Fix: ChromiumOptions.arguments type error: list object has no attribute 'get' | 修復 ChromiumOptions.arguments 類型錯誤：list 對象沒有屬性 'get'
+11. Fix: Some Issues | 修復一些問題
+
+## v1.9.04
+1. Add: Opera GX Support | 添加 Opera GX 支持
+2. Same as v1.9.03 | 與 v1.9.03 相同
+3. Hotfix: Some Issues | 修復一些問題
+4. Add: Bypass Cursor JWT EXP Problem | 添加繞過 Cursor JWT EXP 問題
+5. Fix: Cursor editor redirects to logout page and logout automatically | 修復 Cursor 編輯器重定向到登出頁面並自動登出
+6. Fix: Some Issues | 修復一些問題
+
+## v1.9.03[Skip & Merge to v1.9.04]
+1. Hotfix: Some Issues | 修復一些問題
+2. Add: Bypass Cursor JWT EXP Problem | 添加繞過 Cursor JWT EXP 問題
+3. Fix: Cursor editor redirects to logout page and logout automatically | 修復 Cursor 編輯器重定向到登出頁面並自動登出
+4. Fix: Some Issues | 修復一些問題
+
+## v1.9.02
+1. Add: Bypass Token Limit | 添加繞過 Token 限制
+2. Add: More Browser Support | 添加更多瀏覽器支持
+3. Add: Bypass Cursor JWT EXP Problem | 添加繞過 Cursor JWT EXP 問題
+4. Support: Add Opera, Brave, Edge, Firefox | 添加支持 Opera, Brave, Edge, Firefox
+5. Add config manual browser path | 添加配置手動選擇遊覽器路徑
+5. Fix: Browser Profile Selection | 修復瀏覽器配置文件選擇
+6. Fix: Cursor editor redirects to logout page and logout automatically | 修復 Cursor 編輯器重定向到登出頁面並自動登出
+7. Fix: Config File Path | 修復配置文件路徑
+8. Fix: window user permission | 修復 window 用戶權限
+9. Fix: Some Issues | 修復一些問題
+
+## v1.9.01
+1. Add: Bypass Token Limit | 添加繞過 Token 限制
+2. Add: More Browser Support | 添加更多瀏覽器支持
+3. Support: Add Opera, Brave, Edge, Firefox | 添加支持 Opera, Brave, Edge, Firefox
+4. Add config manual browser path | 添加配置手動選擇遊覽器路徑
+5. Fix: Browser Profile Selection | 修復瀏覽器配置文件選擇
+6. Fix: Some Issues | 修復一些問題
+
+
+## v1.8.10
+1. Add: Check User Authorized | 添加檢查用戶授權
+2. Fix: Linux Reset Process Error: 'base' | 修復 Linux 重置過程錯誤：'base'
+3. Updated the get_workbench_cursor_path function to handle Linux systems more effectively. | 更新 get_workbench_cursor_path 函數以更有效地處理 Linux 系統
+4. Added logic to use the first base path if no valid paths are found in the existing loop. | 添加邏輯以在找不到有效路徑時使用第一個基礎路徑
+5. Improved maintainability and clarity of the code by explicitly handling different operating systems. | 通過明確處理不同的操作系統，顯著提高了代碼的可維護性和清晰性
+6. Fix: Some Issues | 修復一些問題
+
 ## v1.8.09
 1. Add: Bypass Token Limit Check | 繞過 Token 使用限制檢查
 2. Add：Bypass Claude Limit 30000 set to 900000(9e5) | 繞過 Claude 使用限制 30000 設置為 900000(9e5)
@@ -263,7 +339,7 @@ These changes make the application more user-friendly by only requesting admin p
 1. Fix: Cursor Auth | 修復 Cursor Auth
 2. Add: Create Account Maximum Retry | 增加創建賬號最大重試次數
 3. Fix: Cursor Auth Error | 修復 Cursor Auth 錯誤
-4. Fix: Update Curl Faild | 修復更新 Curl 失敗
+4. Fix: Update Curl Failed | 修復更新 Curl 失敗
 
 ## v1.5.03
 1. HOTFIX: Stuck on starting browser | 修復啟動瀏覽器卡住問題

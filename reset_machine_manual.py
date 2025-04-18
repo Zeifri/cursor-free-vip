@@ -12,7 +12,6 @@ import glob
 from colorama import Fore, Style, init
 from typing import Tuple
 import configparser
-from new_signup import get_user_documents_path
 import traceback
 from config import get_config
 from datetime import datetime
@@ -30,6 +29,20 @@ EMOJI = {
     "RESET": "🔄",
     "WARNING": "⚠️",
 }
+
+def get_user_documents_path():
+     """Get user Documents folder path"""
+     if sys.platform == "win32":
+         return os.path.join(os.path.expanduser("~"), "Documents")
+     elif sys.platform == "darwin":
+         return os.path.join(os.path.expanduser("~"), "Documents")
+     else:  # Linux
+         # Get actual user's home directory
+         sudo_user = os.environ.get('SUDO_USER')
+         if sudo_user:
+             return os.path.join("/home", sudo_user, "Documents")
+         return os.path.join(os.path.expanduser("~"), "Documents")
+     
 
 def get_cursor_paths(translator=None) -> Tuple[str, str]:
     """ Get Cursor related paths"""
@@ -221,8 +234,12 @@ def get_workbench_cursor_path(translator=None) -> str:
 
     if system == "Windows":
         base_path = config.get('WindowsPaths', 'cursor_path')
-    else:
+    elif system == "Darwin":
         base_path = paths_map[system]["base"]
+    else:  # Linux
+        # For Linux, we've already checked all bases in the loop above
+        # If we're here, it means none of the bases worked, so we'll use the first one
+        base_path = paths_map[system]["bases"][0]
 
     main_path = os.path.join(base_path, paths_map[system]["main"])
     
