@@ -3,10 +3,14 @@ name: Build Executables
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version number (e.g. 1.0.9)'
+      use_env_version:
+        description: 'Use version from .env file (yes/no)'
         required: true
-        default: '1.10.04'  
+        default: 'yes'
+      version:
+        description: 'Version number (only used if not using .env version)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -14,27 +18,65 @@ permissions:
   packages: write
 
 jobs:
+  determine-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get version from .env file
+        id: env-version
+        if: ${{ github.event.inputs.use_env_version == 'yes' }}
+        run: |
+          VERSION=$(grep "^version=" .env | cut -d'=' -f2)
+          echo "ENV_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Using version from .env file: $VERSION"
+      
+      - name: Use manual version
+        id: manual-version
+        if: ${{ github.event.inputs.use_env_version != 'yes' }}
+        run: |
+          echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          echo "Using manually entered version: ${{ github.event.inputs.version }}"
+      
+      - name: Set final version
+        id: set-version
+        run: |
+          if [ "${{ github.event.inputs.use_env_version }}" == "yes" ]; then
+            echo "version=${{ env.ENV_VERSION }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          fi
+
   create-tag:
+    needs: determine-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # 获取所有标签
           
-      - name: Delete existing tag if exists
+      - name: Check if tag exists
+        id: check_tag
         run: |
-          if git ls-remote --tags origin | grep -q "refs/tags/v${{ github.event.inputs.version }}"; then
-            git push origin --delete "v${{ github.event.inputs.version }}" || true
-            git tag -d "v${{ github.event.inputs.version }}" || true
+          if git ls-remote --tags origin | grep -q "refs/tags/v${{ needs.determine-version.outputs.version }}"; then
+            echo "Tag v${{ needs.determine-version.outputs.version }} already exists, will use existing tag"
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag v${{ needs.determine-version.outputs.version }} does not exist, will create new tag"
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
           fi
           
-      - name: Create Tag
+      - name: Create Tag if not exists
+        if: steps.check_tag.outputs.tag_exists == 'false'
         run: |
-          git tag "v${{ github.event.inputs.version }}"
-          git push origin "v${{ github.event.inputs.version }}"
+          git tag "v${{ needs.determine-version.outputs.version }}"
+          git push origin "v${{ needs.determine-version.outputs.version }}"
 
   build-windows:
-    needs: create-tag
+    needs: [determine-version, create-tag]
     runs-on: windows-latest
     
     steps:
@@ -47,7 +89,7 @@ jobs:
     
     - name: Set version
       shell: bash
-      run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+      run: echo "VERSION=${{ needs.determine-version.outputs.version }}" >> $GITHUB_ENV
     
     - name: Install dependencies
       run: |
@@ -66,7 +108,7 @@ jobs:
         path: dist/CursorFreeVIP_${{ env.VERSION }}_windows.exe
 
   build-macos-arm64:
-    needs: create-tag
+    needs: [determine-version, create-tag]
     runs-on: macos-latest
     
     steps:
@@ -79,7 +121,7 @@ jobs:
     
     - name: Set version
       shell: bash
-      run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+      run: echo "VERSION=${{ needs.determine-version.outputs.version }}" >> $GITHUB_ENV
     
     - name: Install dependencies
       run: |
@@ -99,7 +141,7 @@ jobs:
         path: dist/CursorFreeVIP_${{ env.VERSION }}_mac_arm64
 
   build-linux-x64:
-    needs: create-tag
+    needs: [determine-version, create-tag]
     runs-on: ubuntu-22.04
     
     steps:
@@ -112,7 +154,7 @@ jobs:
     
     - name: Set version
       shell: bash
-      run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+      run: echo "VERSION=${{ needs.determine-version.outputs.version }}" >> $GITHUB_ENV
     
     - name: Install dependencies
       run: |
@@ -136,7 +178,7 @@ jobs:
         path: dist/CursorFreeVIP_${{ env.VERSION }}_linux_x64
 
   build-linux-arm64:
-    needs: create-tag
+    needs: [determine-version, create-tag]
     runs-on: ubuntu-latest
     
     steps:
@@ -149,7 +191,7 @@ jobs:
     
     - name: Set version
       shell: bash
-      run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+      run: echo "VERSION=${{ needs.determine-version.outputs.version }}" >> $GITHUB_ENV
     
     - name: Build in ARM64 Docker container
       run: |
@@ -171,7 +213,7 @@ jobs:
         path: dist/CursorFreeVIP_${{ env.VERSION }}_linux_arm64
 
   build-macos-intel:
-    needs: create-tag
+    needs: [determine-version, create-tag]
     runs-on: macos-latest
 
     steps:
@@ -184,7 +226,7 @@ jobs:
 
     - name: Set version
       shell: bash
-      run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+      run: echo "VERSION=${{ needs.determine-version.outputs.version }}" >> $GITHUB_ENV
 
     - name: Install dependencies
       run: |
@@ -207,7 +249,7 @@ jobs:
         path: dist/CursorFreeVIP_${{ env.VERSION }}_mac_intel
 
   create-release:
-    needs: [build-windows, build-macos-arm64, build-linux-x64, build-linux-arm64, build-macos-intel]
+    needs: [determine-version, build-windows, build-macos-arm64, build-linux-x64, build-linux-arm64, build-macos-intel]
     runs-on: ubuntu-22.04
     
     steps:
@@ -216,7 +258,7 @@ jobs:
       
       - name: Get version
         shell: bash
-        run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+        run: echo "VERSION=${{ needs.determine-version.outputs.version }}" >> $GITHUB_ENV
           
       - name: Download all artifacts
         uses: actions/download-artifact@v4
@@ -279,7 +321,7 @@ jobs:
           cat release_notes.md
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VERSION }}
           body_path: release_notes.md
