@@ -1,5 +1,25 @@
 # Change Log
 
+## v1.11.02
+1. Fill: Missing Translations（ar, zh-cn, zh-tw, vi, nl, de, fr, pt, ru, tr, bg, es, ja, it） | 填補缺失的翻譯
+2. Add: Japanese and Italian language support
+3. Refactor: Account Generation with Faker and Update requirements.txt
+4. Add: script to auto-translate missing keys in translation files | 增加 fill_missing_translations.py 自動翻譯缺失的翻譯鍵
+5. Add: TempMailPlus Support, support temp email verification | 新增 TempMailPlus 配置，支持临时邮箱验证功能
+6. Fix: Chrome user data directory permission problem on mac | 修復 Chrome 用戶數據目錄權限問題 on mac
+7. Fix: Some Issues | 修復一些問題
+
+## v1.11.01
+0. Must Update to this version to get full experience | 必須更新到此版本以獲取完整體驗
+1. Restore: Some Main Code | 恢復一些主程式碼
+2. Add: Arabic language | 增加阿拉伯語
+3. Add: Language configuration saved setting | 增加語言配置保存設定
+4. Add: Restore Machine ID from Backup | 增加從備份恢復機器ID
+5. Add: Owned Website Check Version | 增加擁有網站檢查版本
+6. Fix: use cursor_path from config_file | 修復使用 cursor_path 從 config_file
+7. Fix: macOS 'bypass_version.py' get product_json_path from config_file | 修復 macOS 'bypass_version.py' 從 config_file 獲取 product_json_path
+8. Fix: Some Issues | 修復一些問題
+
 ## v1.10.05
 1. Remove block_domain.txt | 移除 block_domain.txt
 2. Original Code In Github , If u afraid of virus, please clone the code and run locally | 原始碼在 Github 上，如果怕病毒，請複製原始碼並在本機運行

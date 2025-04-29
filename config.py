@@ -105,6 +105,12 @@ def setup_config(translator=None):
             'Token': {
                 'refresh_server': 'https://token.cursorpro.com.cn',
                 'enable_refresh': True
+            },
+            'Language': {
+                'current_language': '',  # Set by local system detection if empty
+                'fallback_language': 'en',
+                'auto_update_languages': 'True',
+                'language_cache_dir': os.path.join(config_dir, "language_cache")
             }
         }
 
@@ -243,6 +249,13 @@ def setup_config(translator=None):
                 'product_json_path': os.path.join(cursor_dir, "resources/app/product.json") if cursor_dir else ""
             }
 
+        # Add tempmail_plus configuration
+        default_config['TempMailPlus'] = {
+            'enabled': 'false',
+            'email': '',
+            'epin': ''
+        }
+
         # Read existing configuration and merge
         if os.path.exists(config_file):
             config.read(config_file, encoding='utf-8')
@@ -364,4 +377,4 @@ def get_config(translator=None):
     global _config_cache
     if _config_cache is None:
         _config_cache = setup_config(translator)
-    return _config_cache 
+    return _config_cache

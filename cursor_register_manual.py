@@ -2,9 +2,11 @@ import os
 from colorama import Fore, Style, init
 import time
 import random
+from faker import Faker
 from cursor_auth import CursorAuth
 from reset_machine_manual import MachineIDResetter
 from get_user_token import get_token_from_cookie
+from config import get_config
 
 os.environ["PYTHONVERBOSE"] = "0"
 os.environ["PYINSTALLER_VERBOSE"] = "0"
@@ -42,32 +44,25 @@ class CursorRegistration:
         self.signup_tab = None
         self.email_tab = None
         
-        # Generate account information
-        self.password = self._generate_password()
-        # Generate first name and last name separately
-        first_name = random.choice([
-            "James", "John", "Robert", "Michael", "William", "David", "Joseph", "Thomas",
-            "Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia",
-            "Liam", "Noah", "Oliver", "Elijah", "Lucas", "Mason", "Logan", "Alexander"
-        ])
-        self.last_name = random.choice([
-            "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis",
-            "Anderson", "Wilson", "Taylor", "Thomas", "Moore", "Martin", "Jackson", "Lee",
-            "Thompson", "White", "Harris", "Clark", "Lewis", "Walker", "Hall", "Young"
-        ])
+        # initialize Faker instance
+        self.faker = Faker()
         
-        # Modify first letter of first name
+        # generate account information
+        self.password = self._generate_password()
+        self.first_name = self.faker.first_name()
+        self.last_name = self.faker.last_name()
+        
+        # modify the first letter of the first name(keep the original function)
         new_first_letter = random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-        self.first_name = new_first_letter + first_name[1:]
+        self.first_name = new_first_letter + self.first_name[1:]
         
         print(f"\n{Fore.CYAN}{EMOJI['PASSWORD']} {self.translator.get('register.password')}: {self.password} {Style.RESET_ALL}")
         print(f"{Fore.CYAN}{EMOJI['FORM']} {self.translator.get('register.first_name')}: {self.first_name} {Style.RESET_ALL}")
         print(f"{Fore.CYAN}{EMOJI['FORM']} {self.translator.get('register.last_name')}: {self.last_name} {Style.RESET_ALL}")
 
     def _generate_password(self, length=12):
-        """Generate Random Password"""
-        chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
-        return ''.join(random.choices(chars, k=length))
+        """Generate password"""
+        return self.faker.password(length=length, special_chars=True, digits=True, upper_case=True, lower_case=True)
 
     def setup_email(self):
         """Setup Email"""
@@ -108,6 +103,18 @@ class CursorRegistration:
         try:
             print(f"{Fore.CYAN}{EMOJI['START']} {self.translator.get('register.register_start')}...{Style.RESET_ALL}")
             
+            # Check if tempmail_plus is enabled
+            config = get_config(self.translator)
+            email_tab = None
+            if config and config.has_section('TempMailPlus'):
+                if config.getboolean('TempMailPlus', 'enabled'):
+                    email = config.get('TempMailPlus', 'email')
+                    epin = config.get('TempMailPlus', 'epin')
+                    if email and epin:
+                        from email_tabs.tempmail_plus_tab import TempMailPlusTab
+                        email_tab = TempMailPlusTab(email, epin)
+                        print(f"{Fore.CYAN}{EMOJI['MAIL']} {self.translator.get('register.using_tempmail_plus')}{Style.RESET_ALL}")
+            
             # Use new_signup.py directly for registration
             from new_signup import main as new_signup_main
             
@@ -117,7 +124,7 @@ class CursorRegistration:
                 password=self.password,
                 first_name=self.first_name,
                 last_name=self.last_name,
-                email_tab=None,  # No email tab needed
+                email_tab=email_tab,  # Pass email_tab if tempmail_plus is enabled
                 controller=self,  # Pass self instead of self.controller
                 translator=self.translator
             )
@@ -206,7 +213,7 @@ class CursorRegistration:
         try:
             # Update authentication information first
             print(f"{Fore.CYAN}{EMOJI['KEY']} {self.translator.get('register.update_cursor_auth_info')}...{Style.RESET_ALL}")
-            if self.update_cursor_auth(email=self.email_address, access_token=token, refresh_token=token):
+            if self.update_cursor_auth(email=self.email_address, access_token=token, refresh_token=token, auth_type="Auth_0"):
                 print(f"{Fore.GREEN}{EMOJI['SUCCESS']} {self.translator.get('register.cursor_auth_info_updated')}...{Style.RESET_ALL}")
             else:
                 print(f"{Fore.RED}{EMOJI['ERROR']} {self.translator.get('register.cursor_auth_info_update_failed')}...{Style.RESET_ALL}")
@@ -249,10 +256,10 @@ class CursorRegistration:
                 except:
                     pass
 
-    def update_cursor_auth(self, email=None, access_token=None, refresh_token=None):
+    def update_cursor_auth(self, email=None, access_token=None, refresh_token=None, auth_type="Auth_0"):
         """Convenient function to update Cursor authentication information"""
         auth_manager = CursorAuth(translator=self.translator)
-        return auth_manager.update_auth(email, access_token, refresh_token)
+        return auth_manager.update_auth(email, access_token, refresh_token, auth_type)
 
 def main(translator=None):
     """Main function to be called from main.py"""
