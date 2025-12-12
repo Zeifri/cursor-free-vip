@@ -862,5 +862,17 @@
         "description": "Bu araç, jeton sınırını atlamak için workbench.desktop.main.js dosyasını değiştirir",
         "press_enter": "Devam etmek için Enter tuşuna basın ...",
         "title": "Baypas Token Limit Aracı"
+    },
+    "tempmail": {
+        "general_error": "Bir hata oluştu: {hata}",
+        "no_email": "İmleç doğrulama e -postası bulunamadı",
+        "config_error": "Yapılandırma dosya hatası: {error}",
+        "extract_code_failed": "Çıkarma Doğrulama Kodu Başarısız: {Hata}",
+        "configured_email": "Yapılandırılmış e -posta: {e -posta}",
+        "checking_email": "İmleç doğrulama e -postasını kontrol etmek ...",
+        "check_email_failed": "E -postanın başarısız olduğunu kontrol edin: {hata}",
+        "no_code": "Doğrulama kodu alamadı",
+        "email_found": "İmleç doğrulama e -postası bulundu",
+        "verification_code": "Doğrulama kodu: {kod}"
     }
 }

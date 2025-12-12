@@ -862,5 +862,17 @@
         "description": "Esta ferramenta modifica o arquivo workbench.desktop.main.js para ignorar o limite do token",
         "press_enter": "Pressione Enter para continuar ...",
         "title": "Ipassue Token Limit Tool"
+    },
+    "tempmail": {
+        "config_error": "Erro de arquivo de configuração: {erro}",
+        "general_error": "Ocorreu um erro: {erro}",
+        "no_email": "Nenhum e -mail de verificação do cursor encontrado",
+        "extract_code_failed": "Código de verificação de extração falhou: {erro}",
+        "checking_email": "Verificando o e -mail de verificação do cursor ...",
+        "configured_email": "Email configurado: {email}",
+        "no_code": "Não foi possível obter o código de verificação",
+        "check_email_failed": "Verifique o e -mail falhado: {erro}",
+        "verification_code": "Código de verificação: {code}",
+        "email_found": "E -mail de verificação do cursor encontrado"
     }
 }

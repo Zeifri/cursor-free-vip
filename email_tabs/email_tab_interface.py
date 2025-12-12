@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class EmailTabInterface(ABC):
-    """Email tab interface for handling email verification"""
+    """Interface for email tab implementations"""
     
     @abstractmethod
     def refresh_inbox(self) -> None:
@@ -10,10 +10,10 @@ class EmailTabInterface(ABC):
     
     @abstractmethod
     def check_for_cursor_email(self) -> bool:
-        """Check if there is a verification email from Cursor
+        """Check if there is a new email from Cursor
         
         Returns:
-            bool: True if verification email exists, False otherwise
+            bool: True if new email found, False otherwise
         """
         pass
     
@@ -22,6 +22,6 @@ class EmailTabInterface(ABC):
         """Get the verification code from the email
         
         Returns:
-            str: The verification code if found, empty string otherwise
+            str: The verification code if available, empty string otherwise
         """
         pass

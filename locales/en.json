@@ -191,6 +191,8 @@
         "setting_password": "Setting Password",
         "manual_code_input": "Manual Code Input",
         "manual_email_input": "Manual Email Input",
+        "suggest_email": "Suggested email: {suggested_email}",
+        "use_suggested_email_or_enter": "Type \"yes\" to use this email or enter your own email:",
         "password": "Password",
         "first_name": "First Name",
         "last_name": "Last Name",
@@ -850,5 +852,17 @@
         "auth_updated_successfully": "Authentication information updated successfully!",
         "auth_update_failed": "Failed to update authentication information",
         "error": "Error: {error}"
+    },
+    "tempmail": {
+        "check_email_failed": "Check email failed: {error}",
+        "extract_code_failed": "Extract verification code failed: {error}",
+        "configured_email": "Configured email: {email}",
+        "checking_email": "Checking for Cursor verification email...",
+        "email_found": "Found Cursor verification email",
+        "verification_code": "Verification code: {code}",
+        "no_code": "Could not get verification code",
+        "no_email": "No Cursor verification email found",
+        "config_error": "Config file error: {error}",
+        "general_error": "An error occurred: {error}"
     }
 }

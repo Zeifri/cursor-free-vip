@@ -862,5 +862,17 @@
         "description": "Esta herramienta modifica el archivo workbench.desktop.main.js para evitar el límite del token",
         "press_enter": "Presione Entrar para continuar ...",
         "title": "Herramienta de límite de token de derivación"
+    },
+    "tempmail": {
+        "general_error": "Se produjo un error: {error}",
+        "config_error": "Error de archivo de configuración: {error}",
+        "no_email": "No se encuentra el correo electrónico de verificación del cursor",
+        "checking_email": "Comprobación del correo electrónico de verificación del cursor ...",
+        "configured_email": "Correo electrónico configurado: {correo electrónico}",
+        "extract_code_failed": "Extraer el código de verificación fallido: {error}",
+        "no_code": "No pudo obtener el código de verificación",
+        "check_email_failed": "Verifique el correo electrónico fallido: {error}",
+        "email_found": "Correo electrónico de verificación del cursor encontrado",
+        "verification_code": "Código de verificación: {código}"
     }
 }

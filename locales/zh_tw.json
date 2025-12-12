@@ -188,6 +188,8 @@
         "setting_password": "設置密碼",
         "manual_code_input": "手動輸入驗證碼",
         "manual_email_input": "手動輸入郵箱地址",
+        "suggest_email": "推薦郵箱地址: {suggested_email}",
+        "use_suggested_email_or_enter": "輸入\"yes\"使用此郵箱或直接輸入您想使用的郵箱地址:",
         "password": "密碼",
         "first_name": "名字",
         "last_name": "姓氏",
@@ -869,5 +871,17 @@
         "title": "手動Cursor身份驗證",
         "updating_database": "更新Cursor身份驗證數據庫...",
         "auth_update_failed": "無法更新身份驗證信息"
+    },
+    "tempmail": {
+        "general_error": "發生錯誤：{error}",
+        "config_error": "配置文件錯誤：{error}",
+        "no_email": "找不到Cursor驗證電子郵件",
+        "checking_email": "檢查Cursor驗證電子郵件...",
+        "extract_code_failed": "提取驗證代碼失敗：{error}",
+        "configured_email": "配置的電子郵件：{email}",
+        "no_code": "無法獲得驗證代碼",
+        "check_email_failed": "檢查電子郵件失敗：{error}",
+        "email_found": "找到Cursor驗證電子郵件",
+        "verification_code": "驗證代碼：{code}"
     }
 }

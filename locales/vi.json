@@ -863,5 +863,17 @@
         "profile": "Hồ sơ {Number}",
         "profile_list": "Có sẵn {trình duyệt} Hồ sơ:",
         "invalid_selection": "Lựa chọn không hợp lệ. Hãy thử lại."
+    },
+    "tempmail": {
+        "config_error": "Lỗi tệp cấu hình: {error}",
+        "general_error": "Đã xảy ra lỗi: {lỗi}",
+        "no_email": "Không tìm thấy email xác minh con trỏ",
+        "checking_email": "Kiểm tra email xác minh con trỏ ...",
+        "configured_email": "Email được định cấu hình: {email}",
+        "extract_code_failed": "Trích xuất mã xác minh không thành công: {error}",
+        "no_code": "Không thể nhận mã xác minh",
+        "check_email_failed": "Kiểm tra email không thành công: {lỗi}",
+        "email_found": "Tìm thấy email xác minh con trỏ",
+        "verification_code": "Mã xác minh: {code}"
     }
 }

@@ -191,6 +191,8 @@
         "setting_password": "设置密码",
         "manual_code_input": "手动输入验证码",
         "manual_email_input": "手动输入邮箱",
+        "suggest_email": "推荐邮箱地址: {suggested_email}",
+        "use_suggested_email_or_enter": "输入\"yes\"使用此邮箱或直接输入您想使用的邮箱地址:",
         "password": "密码",
         "first_name": "名字",
         "last_name": "姓氏",
@@ -854,5 +856,17 @@
         "title": "手动Cursor身份验证",
         "token_verified": "令牌成功验证了！",
         "updating_database": "更新Cursor身份验证数据库..."
+    },
+    "tempmail": {
+        "general_error": "发生错误：{error}",
+        "no_email": "找不到Cursor验证电子邮件",
+        "configured_email": "配置的电子邮件：{email}",
+        "config_error": "配置文件错误：{error}",
+        "extract_code_failed": "提取验证代码失败：{error}",
+        "no_code": "无法获得验证代码",
+        "check_email_failed": "检查电子邮件失败：{error}",
+        "checking_email": "检查Cursor验证电子邮件...",
+        "email_found": "找到Cursor验证电子邮件",
+        "verification_code": "验证代码：{code}"
     }
 }

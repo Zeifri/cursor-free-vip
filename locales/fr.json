@@ -862,5 +862,17 @@
         "description": "Cet outil modifie le fichier workbench.desktop.main.js pour contourner la limite de jeton",
         "press_enter": "Appuyez sur Entrée pour continuer ...",
         "title": "Outil de limite de jeton de contournement"
+    },
+    "tempmail": {
+        "no_email": "Aucun e-mail de vérification du curseur trouvé",
+        "general_error": "Une erreur s'est produite: {erreur}",
+        "config_error": "Erreur de fichier de configuration: {erreur}",
+        "configured_email": "Email configuré: {e-mail}",
+        "extract_code_failed": "Extraire le code de vérification a échoué: {error}",
+        "checking_email": "Vérification du courrier électronique de vérification du curseur ...",
+        "email_found": "Email de vérification du curseur trouvé",
+        "no_code": "Impossible d'obtenir le code de vérification",
+        "check_email_failed": "Vérifier l'échec de l'e-mail: {Erreur}",
+        "verification_code": "Code de vérification: {code}"
     }
 }

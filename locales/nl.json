@@ -862,5 +862,17 @@
         "description": "Deze tool wijzigt het bestand Workbench.desktop.main.js om de tokenlimiet te omzeilen",
         "press_enter": "Druk op Enter om door te gaan ...",
         "title": "Omzeilen token limiet tool"
+    },
+    "tempmail": {
+        "no_email": "Geen cursorverificatie -e -mail gevonden",
+        "general_error": "Er is een fout opgetreden: {error}",
+        "config_error": "Config -bestandsfout: {error}",
+        "checking_email": "Controleren op cursorverificatie -e -mail ...",
+        "extract_code_failed": "Extract Verificatiecode mislukt: {error}",
+        "configured_email": "Geconfigureerd e -mail: {e -mail}",
+        "no_code": "Kon geen verificatiecode krijgen",
+        "email_found": "Cursor Verificatie -e -mail gevonden",
+        "check_email_failed": "Controleer e -mail mislukt: {error}",
+        "verification_code": "Verificatiecode: {code}"
     }
 }

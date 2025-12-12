@@ -850,5 +850,17 @@
         "description": "Questo strumento modifica il file workbench.desktop.main.js per bypassare il limite token",
         "press_enter": "Premere Invio per continuare ...",
         "title": "Strumento di limite di bypass token"
+    },
+    "tempmail": {
+        "config_error": "Errore del file di configurazione: {errore}",
+        "no_email": "Nessuna e -mail di verifica del cursore trovato",
+        "general_error": "Si è verificato un errore: {errore}",
+        "extract_code_failed": "Extract Verifica Codice non riuscito: {errore}",
+        "configured_email": "Email configurata: {email}",
+        "no_code": "Impossibile ottenere il codice di verifica",
+        "checking_email": "Verificare la verifica della verifica del cursore ...",
+        "check_email_failed": "Controlla l'e -mail non riuscita: {errore}",
+        "email_found": "Email di verifica del cursore trovato",
+        "verification_code": "Codice di verifica: {codice}"
     }
 }

@@ -862,5 +862,17 @@
         "description": "Dieses Tool modifiziert die Datei workbench.desktop.main.js, um die Token -Grenze zu umgehen",
         "press_enter": "Drücken Sie die Eingabetaste, um fortzufahren ...",
         "title": "Bypass Token Limit Tool"
+    },
+    "tempmail": {
+        "no_email": "Keine Cursorüberprüfungs -E -Mail gefunden",
+        "general_error": "Es ist ein Fehler aufgetreten: {Fehler}",
+        "config_error": "Konfigurationsdateifehler: {Fehler}",
+        "checking_email": "Überprüfung nach Cursor -Überprüfungs -E -Mail ...",
+        "extract_code_failed": "Verifizierungscode extrahieren fehlgeschlagen: {Fehler}",
+        "configured_email": "Konfigurierte E -Mail: {E -Mail}",
+        "no_code": "Konnte keinen Bestätigungscode erhalten",
+        "check_email_failed": "Überprüfen Sie die E -Mail fehlgeschlagen: {Fehler}",
+        "email_found": "Gefundene Cursor -Überprüfungs -E -Mail gefunden",
+        "verification_code": "Überprüfungscode: {Code}"
     }
 }

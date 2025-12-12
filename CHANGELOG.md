@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.11.03
+1. Update: TempMailPlus Cursor Email Detection Logic | 更新 TempMailPlus Cursor 邮件识别逻辑
+2. Fix: Windows User Directory Path | 修正 windows 环境下用户目录的获取方式
+3. Fix: Some Issues | 修復一些問題
+
 ## v1.11.02
 1. Fill: Missing Translations（ar, zh-cn, zh-tw, vi, nl, de, fr, pt, ru, tr, bg, es, ja, it） | 填補缺失的翻譯
 2. Add: Japanese and Italian language support

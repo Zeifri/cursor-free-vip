@@ -850,5 +850,17 @@
         "title": "手動カーソル認証",
         "updating_database": "カーソル認証データベースの更新...",
         "auth_update_failed": "認証情報の更新に失敗しました"
+    },
+    "tempmail": {
+        "general_error": "エラーが発生しました：{エラー}",
+        "no_email": "カーソル検証メールは見つかりません",
+        "config_error": "構成ファイルエラー：{エラー}",
+        "checking_email": "カーソル検証メールの確認...",
+        "extract_code_failed": "検証コードが失敗した抽出：{エラー}",
+        "configured_email": "構成された電子メール：{電子メール}",
+        "email_found": "カーソル検証メールが見つかりました",
+        "no_code": "確認コードを取得できませんでした",
+        "check_email_failed": "電子メールの失敗を確認する：{エラー}",
+        "verification_code": "検証コード：{code}"
     }
 }
